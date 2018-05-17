@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <title>Escola de Sa&uacute;de P&uacute;blica do Cear&aacute;</title>
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="escola, escola de saude, escola de saúde, governo, estado, ceará, ceara, governo estado ceara, governo estado cear�, saude, secretaria sa�de, sa�de, secretaria saude estado ceara, secretaria sa�de estado cear�, sesa, joomla" />
+        <meta name="description" content="Escola de Sa&uacute;de P&uacute;blica do Cear&aacute;" />
+        <meta name="MSSmartTagsPreventParsing" content="true" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <link rel="stylesheet" href="admz/resources/css/principal_firefox.css" type="text/css" />
+        <!--[if IE]>
+            <link rel="stylesheet" href="../resources/css/cabecalho_ie7.css" type="text/css" />
+        <![endif]-->
+    </h:head>
+    <h:body id="bdLogin">
+        <div id="geral" align="center">
+            <div style="height: 100px">
+                <ui:insert >
+                    <ui:include src="/masterPageCabecalho.xhtml" />
+                </ui:insert>
+            </div>
+            <div align="center" style="width: 590px; height: 550px; display: table-cell; margin: 0 auto;">
+                <h:form id="frmMono" prependId="false" >
+                    <div class="ui-growl">
+                        <p:growl id="avisos" showDetail="false" life="5000"/>
+                    </div>
+                    <p:panel id="rplMono" header="BDTDM - Cadastro de Usuário" style="width: 500px" >
+                        <h:panelGrid columns="2" style="azimuth: left">
+                            <h:outputLabel id="oplCpf" value="CPF:" for="iptCpf"/>
+                            <p:inputMask id="iptCpf" mask="999.999.999-99" value="#{usuarioControle.usuarios.cpf}" alt="cpf"
+                                         required="true"
+                                         requiredMessage="Informe CPF!">
+                            </p:inputMask>
+                            <h:outputLabel id="oplNom" value="Nome:" for="iptNom"/>
+                            <p:inputText id="iptNom" required="true" maxlength="50" requiredMessage="Preencha Nome!" style="width:400px" value="#{usuarioControle.usuarios.nome}"/>
+                            <h:outputLabel id="oplMail" value="E-mail:" for="iptMail"/>
+                            <p:inputText id="iptMail" required="true" maxlength="100" requiredMessage="Preencha E-mail!" style="width:400px" value="#{usuarioControle.usuarios.email}"/>
+                            <h:outputLabel value="Senha" for="iptSen"/>
+                            <p:password id="iptSen" feedback="true" minLength="10" promptLabel="Por favor, insira uma senha!" weakLabel="Senha fraca"
+                                        goodLabel="Senha segura" strongLabel="Senha muito segura" required="true" maxlength="20" requiredMessage="Preencha Senha!" value="#{usuarioControle.usuarios.senha}"/>
+                            <h:outputLabel value="Confirma Senha" for="iptConSen"/>
+                            <p:password id="iptConSen" feedback="false" minLength="10" required="true" maxlength="20" requiredMessage="Senha não informada!" value="#{usuarioControle.usuarios.confSenha}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:commandButton id="btnInc" title="Incluir" value="Incluir" rendered="true" actionListener="#{usuarioControle.incluir}"
+                                             styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+                            <h:commandButton id="btnVoltar" value="Voltar" immediate="true" action="/faces/index.xhtml" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </div>
+            <div>
+                <ui:insert >
+                    <ui:include src="/masterPageRodape.xhtml" />
+                </ui:insert>
+            </div>
+        </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <title>Escola de Sa&uacute;de P&uacute;blica do Cear&aacute;</title>
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="escola, escola de saude, escola de saúde, governo, estado, ceará, ceara, governo estado ceara, governo estado cear�, saude, secretaria sa�de, sa�de, secretaria saude estado ceara, secretaria sa�de estado cear�, sesa, joomla" />
+        <meta name="description" content="Escola de Sa&uacute;de P&uacute;blica do Cear&aacute;" />
+        <meta name="MSSmartTagsPreventParsing" content="true" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <!--[if IE]>
+            <link rel="stylesheet" href="../resources/css/cabecalho_ie7.css" type="text/css" />
+        <![endif]-->
+    </h:head>
+    <body>
+        <div id="geral" align="center">
+            <div style="height: 126px">
+                <ui:insert >
+                    <ui:include src="./masterPageCabecalho.xhtml" />
+                </ui:insert>
+            </div>
+            <div align="center" >
+                <ui:include src="masterPageMenu.xhtml" /><br/>
+            </div>
+            <div align="center" style="width: 390px; height: 350px; display: table-cell; margin: 0 auto;">
+                <div class="ui-growl">
+                    <p:growl id="pmsgLinhaPesq" showDetail="false" life="5000"/>
+                </div>
+                <div>
+                    <h:form id="frmPesqMono" prependId="false" style="width: 500px">
+                        <p:panel id="rplMono" header="BDTDM - Usuários" style="width: 500px">
+                            <div align="center">
+                                <h:panelGrid id="pngdLogin" columns="2">
+                                    <h:outputLabel id="oplUsua" value="Usuário:" for="iptUsua"/>
+                                    <p:inputText id="iptUsua" value="#{admControle.admNovo.usuario}"
+                                                 required="true"
+                                                 requiredMessage="Usuário não informado!">
+                                    </p:inputText>
+                                    <h:outputLabel id="oplSenha" value="Senha:" for="iptSenha"/>
+                                    <h:inputSecret id="iptSenha" value="#{admControle.admNovo.senha}" alt="Senha"
+                                                   required="true"
+                                                   requiredMessage="Senha não Informada!"
+                                                   styleClass="ui-inputfield ui-widget ui-state-default ui-corner-all"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <h:selectBooleanCheckbox value="#{admControle.admNovo.flgadmin}" />
+                                    <h:outputLabel id="oplAdmin" value="Administrador" for="iptAdmin"/>
+                                </h:panelGrid>
+                            </div>
+                            <br/>
+                            <div align="center">
+                                <h:panelGrid columns="4">
+                                    <h:commandButton id="btnInc" title="Incluir" value="Incluir" rendered="true" actionListener="#{admControle.incluir}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+                                </h:panelGrid>
+                            </div>
+                        </p:panel>
+                    </h:form>
+                </div>
+                <br/>
+                <div>
+                    <h:form id="frmDataUsua" prependId="false" style="width: 500px">
+                        <p:dataTable var="adm" value="#{admControle.listarAdm}" emptyMessage="Nenhum registro encontrado" paginator="true" rows="5" paginatorTemplate="{PageLinks}">
+                            <p:column style="width: 400px;text-align: center">
+                                <f:facet name="header">
+                                    Nome
+                                </f:facet>
+                                <h:outputText value="#{adm.usuario}"/>
+                            </p:column>
+                            <p:column style="width: 50px;text-align: center">
+                                <f:facet name="header">
+                                    Administrador
+                                </f:facet>
+                                <h:selectBooleanCheckbox value="#{adm.flgadmin}" disabled="true"/>
+                            </p:column>
+                            <p:column style="width: 250px;text-align: center">
+                                <p:commandButton actionListener="#{admControle.selectedRowUsua}" value="Alterar"
+                                               update="frmDataUsua,panelAlteraUsua,pmsgMono" oncomplete="dialogAlterarUsua.show()"/>&nbsp;
+                                <p:commandButton actionListener="#{admControle.excluir}" value="Excluir" update="frmDataUsua,pmsgLinhaPesq"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+            <h:form id="frmUpUsua" prependId="false">
+                <p:dialog id="dialogUpUsua" widgetVar="dialogAlterarUsua" header="Alterar Usuário" modal="true" width="350" height="250">
+                    <h:panelGrid id="panelAlteraUsua" columns="2" >
+                        <h:outputLabel id="oplUsu" value="Usuário:" for="iptUsu"/>
+                        <p:inputText id="iptUsu" required="true" maxlength="10" requiredMessage="Preencha Usuário!" value="#{admControle.admNovo.usuario}"/>
+                        <h:outputLabel id="oplSenha1" value="Senha:" for="iptSenha1"/>
+                         <h:inputSecret id="iptSenha1" value="#{admControle.admNovo.senha}" alt="Senha" styleClass="ui-inputfield ui-widget ui-state-default ui-corner-all"/>
+                        <h:panelGrid columns="2">
+                            <h:selectBooleanCheckbox value="#{admControle.admNovo.flgadmin}" />
+                            <h:outputLabel id="oplAdmin1" value="Administrador" for="iptAdmin1"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1">
+                        <h:commandButton value="Alterar" title="Alterar" actionListener="#{admControle.alterar}"
+                                         styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+                    </h:panelGrid>
+                </p:dialog>
+            </h:form>
+            <br/>
+            <div>
+                <ui:insert >
+                    <ui:include src="./masterPageRodape.xhtml" />
+                </ui:insert>
+            </div>
+        </div>
+    </body>
+</html>
+

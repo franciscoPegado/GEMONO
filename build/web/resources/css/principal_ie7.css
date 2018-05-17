@@ -1,0 +1,16 @@
+body 
+{
+    margin: 0 auto;
+    font-family:Arial;
+    color:#000000;
+}
+
+div#geral {
+    width:990px;
+    margin:0 auto;
+}
+
+p {
+    margin:0;
+}
+

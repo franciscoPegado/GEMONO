@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+
+        <script type="text/javascript"  language="javascript">
+        function maxLength(textAreaField, limit) {
+                var ta = document.getElementById(textAreaField);
+                if (ta.value.length >= limit) {
+                        ta.value = ta.value.substring(0, limit-1);
+                }
+        }
+        </script>
+
+        <title>Escola de Sa&uacute;de P&uacute;blica do Cear&aacute;</title>
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="escola, escola de saude, escola de saúde, governo, estado, ceará, ceara, governo estado ceara, governo estado cear�, saude, secretaria sa�de, sa�de, secretaria saude estado ceara, secretaria sa�de estado cear�, sesa, joomla" />
+        <meta name="description" content="Escola de Sa&uacute;de P&uacute;blica do Cear&aacute;" />
+        <meta name="MSSmartTagsPreventParsing" content="true" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <!--[if IE]>
+            <link rel="stylesheet" href="../resources/css/cabecalho_ie7.css" type="text/css" />
+        <![endif]-->
+    </h:head>
+    <h:body>
+        <div id="geral" align="center">
+            <div style="height: 126px">
+                <ui:insert >
+                    <ui:include src="./masterPageCabecalho.xhtml" />
+                </ui:insert>
+            </div>
+            <div align="center" >
+                <ui:include src="masterPageMenu.xhtml" /><br/>
+            </div>
+            <div>
+                <h:form id="frmPesqMono" style="width: 810px;text-align: center">
+                    <p:panel id="rplMono" header="BDTDM - Busca Simples" >
+                        <div align="left">
+                            <div align="right">
+                                <h:commandButton id="btnBuscAvanc" title="Busca Avançada" value="Busca Avançada" action="/faces/adm/frmPesqMonoAvanc.xhtml"
+                                                 styleClass="ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+                            </div>
+                            <br/>
+                            <h:outputLabel id="oplPesqMono" value="Busca por palavra-chave:"/>
+                            <h:panelGrid columns="2" style="azimuth: left">
+                                <p:inputText id="iptPesMono" value="#{monografiaControle.desc}" style="width:600px"/>
+                                <h:commandButton id="btnPesMono" title="Buscar" value="Buscar" actionListener="#{monografiaControle.PesquisaMonografias}"
+                                                 styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+                            </h:panelGrid>
+                        </div>
+                    </p:panel>
+                </h:form><br/><br/>
+            </div>
+            <div align="center" style="width: 990px; height: 260px; display: table-cell; margin: 0 auto;">
+                <h:form id="frmDataMono" prependId="false" style="width: 810px;text-align: center;">
+                    <div class="ui-growl">
+                        <p:growl id="avisos1" showDetail="false" life="5000"/>
+                    </div>
+                    <p:dataTable id="dtMonografia" value="#{monografiaControle.model}" var="mono" style="text-align:center; width:auto;"
+                                 emptyMessage="Nenhum registro encontrado" paginator="true" rows="4" paginatorTemplate="{PageLinks}"
+                                 rendered="#{monografiaControle.exibirFormPesq}">
+                        <f:facet name="header">
+                            <h:outputText value="BDTDM CADASTRADOS"/>
+                        </f:facet>
+                        <p:column id="clmAutor" style="width: 120px">
+                            <f:facet name="header">
+                                Autor
+                            </f:facet>
+                            <h:outputLabel value="#{mono.autor}" style="text-transform: uppercase;"/>
+                        </p:column>
+                        <p:column id="clmTitulo" style="width: 400px">
+                            <f:facet name="header">
+                                Título
+                            </f:facet>
+                            <h:outputLabel value="#{mono.tlptbr}" style="text-transform: uppercase;"/>
+                        </p:column>
+                        <p:column id="clmNomeArq" style="width: 100px">
+                            <h:outputLabel value="#{mono.caminho}" style="text-transform: uppercase;"/>
+                        </p:column>
+                        <p:column style="width: 50px">
+                            <f:facet name="header">
+                                Arquivo
+                            </f:facet>
+                            <p:commandButton actionListener="#{monografiaControle.selectedRowMonografia}" value="Incluir"
+                                             update="frmDataMono" oncomplete="dialogChamaUpload.show()" style="color: white"/>&nbsp;&nbsp;
+                            <p:commandButton actionListener="#{monografiaControle.excluirArq}" value="Excluir"
+                                             update="frmDataMono,avisos1" style="color: white"/>
+                        </p:column>
+                        <p:column style="width: 50px">
+                            <f:facet name="header">
+                                Monografia
+                            </f:facet>
+                            <p:commandButton actionListener="#{monografiaControle.prepararAlterar}" value="Alterar"
+                                             update="frmDataMono,panelAlteraMono,avisos1" oncomplete="dialogAlterarMono.show()" style="color: white"/>&nbsp;&nbsp;
+                            <p:commandButton actionListener="#{monografiaControle.excluir}" value="Excluir"
+                                             update="frmDataMono,avisos1" style="color: white"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+            <h:form id="frmUpMonografia" prependId="false">
+                <p:dialog id="dialogUpMonografia" widgetVar="dialogAlterarMono" header="Alterar Monografia" modal="true" width="840" height="600">
+                    <h:panelGrid id="panelAlteraMono" columns="2" style="margin-bottom:10px">
+                        <h:outputLabel id="optLinPesq" value="Linha de Pesquisa:&nbsp;&nbsp;&nbsp;" />
+                        <h:selectOneMenu id="iptLinhaPes" value="#{monografiaControle.monografias.linhaspesquisa.codigo}"
+                                         binding="#{monografiaControle.selectOneMenuLinhasPesquisas}"
+                                         style="width:200px;azimuth: left;" styleClass="ui-inputfield ui-widget ui-state-default ui-corner-all">
+                            <f:selectItems value="#{monografiaControle.listarPesquisa}" />
+                        </h:selectOneMenu>
+                        <h:outputLabel value="Programa:" style="text-align: left"/>
+                        <h:selectOneMenu  id="iptProg"  value="#{monografiaControle.monografias.programas.codigo}" style="width:200px;azimuth: left"
+                                          binding="#{monografiaControle.selectOneMenuPrograma}"
+                                          styleClass="ui-inputfield ui-widget ui-state-default ui-corner-all">
+                            <f:selectItems value="#{monografiaControle.listarPrograma}" />
+                        </h:selectOneMenu>
+                        <h:outputLabel id="oplTitPt" value="Título:" for="iptTitPt"/>
+                        <p:inputText id="iptTitPt" required="true" maxlength="200" requiredMessage="Preencha Título!"  style="width:560px" value="#{monografiaControle.monografias.tlptbr}"/>
+                        <h:outputLabel id="oplTitEn" value="Título Inglês:" for="iptTitEn"/>
+                        <p:inputText id="iptTitEn" required="true" maxlength="200" requiredMessage="Preencha Título em Inglês!" style="width:560px" value="#{monografiaControle.monografias.tlpeng}"/>
+                        <h:outputLabel value="Autor:" for="iptAutor"/>
+                        <p:inputText id="iptAutor" required="true" maxlength="100" requiredMessage="Preencha Autor!" style="width:560px" value="#{monografiaControle.monografias.autor}"/>
+                        <h:outputLabel value="Orientador:" for="iptOri"/>
+                        <p:inputText id="iptOri"  required="true" maxlength="100" requiredMessage="Preencha Orientador!" style="width:560px" value="#{monografiaControle.monografias.orientador}"/>
+                        <h:outputLabel value="Co-orientador:" for="iptCoOri" />
+                        <p:inputText id="iptCoOri" required="true" maxlength="100" requiredMessage="Preencha Co-orientador!" style="width:560px" value="#{monografiaControle.monografias.coorientador}"/>
+                        <h:outputLabel value="Banca Examinadora:" for="iptBanExam"/>
+                        <p:inputText id="iptBanExam" required="true" maxlength="500" requiredMessage="Preencha Banca Examinadora!" style="width:560px" value="#{monografiaControle.monografias.bncex}"/>
+                        <h:outputLabel value="Data da Defesa:" for="iptDatDef"/>
+                        <p:calendar id="iptDatDef" size="8" style="width:120px" pattern="dd/MM/yyyy" value="#{monografiaControle.monografias.datadefesa}"/>
+                        <h:outputLabel value="Assunto:" for="iptAss"/>
+                        <p:inputTextarea id="iptAss" required="true" requiredMessage="Preencha Assunto!" style="width:560px;height: 60px" onkeydown="maxLength('iptAss', 1200)" onkeyup="maxLength('iptAss', 1200)" value="#{monografiaControle.monografias.resumo}" maxHeight="55"/>
+                        <h:outputLabel value="Abstract:" for="iptAbs"/>
+                        <p:inputTextarea id="iptAbs" required="true" requiredMessage="Preencha Abstract!" style="width:560px;height: 60px" onkeydown="maxLength('iptAbs', 1200)" onkeyup="maxLength('iptAbs', 1200)" value="#{monografiaControle.monografias.abstractresumo}" maxHeight="55"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1">
+                        <h:commandButton value="Alterar" title="Alterar" actionListener="#{monografiaControle.alterar}"
+                                         styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+                    </h:panelGrid>
+                </p:dialog>
+            </h:form>
+            <h:form id="frmUpProduto" prependId="false">
+                <div class="ui-growl">
+                    <p:growl id="avisos2" showDetail="false" life="5000"/>
+                </div>
+                <p:dialog id="dialogUpMono" header="Gerenciador de Arquivos" closable="false" widgetVar="dialogChamaUpload" resizable="false" modal="true" width="600" >
+                    <h:panelGrid>
+                        <p:fileUpload auto="true" label="Selecionar..." update="avisos2" allowTypes="*.pdf;" fileUploadListener="#{monografiaControle.fileUploadAction}" rendered="true"/>
+                    </h:panelGrid><br/>
+                    <h:panelGrid>
+                        <h:outputLabel value="Obs:. O arquivo deve estar em PDF." style="font-size: small"/>
+                    </h:panelGrid><br/>
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Fechar" oncomplete="dialogChamaUpload.hide()" update="frmDataMono,panelAlteraMono,avisos1"/>
+                    </h:panelGrid>
+                    <br></br>
+                </p:dialog>
+            </h:form>
+            <br/>
+            <div>
+                <ui:insert >
+                    <ui:include src="./masterPageRodape.xhtml" />
+                </ui:insert>
+            </div>
+        </div>
+    </h:body>
+</html>
+

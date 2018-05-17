@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <title>Escola de Sa&uacute;de P&uacute;blica do Cear&aacute;</title>
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="escola, escola de saude, escola de saúde, governo, estado, ceará, ceara, governo estado ceara, governo estado cear�, saude, secretaria sa�de, sa�de, secretaria saude estado ceara, secretaria sa�de estado cear�, sesa, joomla" />
+        <meta name="description" content="Escola de Sa&uacute;de P&uacute;blica do Cear&aacute;" />
+        <meta name="MSSmartTagsPreventParsing" content="true" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <!--[if IE]>
+            <link rel="stylesheet" href="../resources/css/cabecalho_ie7.css" type="text/css" />
+        <![endif]-->
+    </h:head>
+    <h:body id="bdLogin">
+        <div id="geral" align="center">
+            <div style="height: 126px">
+                <ui:insert >
+                    <ui:include src="./masterPageCabecalho.xhtml" />
+                </ui:insert>
+            </div>
+            <div align="center" >
+                <ui:include src="masterPageMenu.xhtml" /><br/>
+            </div>
+            <div align="center" style="width: 590px; height: 400px; display: table-cell; margin: 0 auto;">
+                <h:form id="frmAltSen" prependId="false" >
+                    <div class="ui-growl">
+                        <p:growl id="avisos" showDetail="false" life="5000"/>
+                    </div>
+                    <p:panel id="rplMono" header="BDTDM - Alterar Senha" style="width: 500px" >
+                        <h:panelGrid columns="2" style="azimuth: left">
+                            <h:outputLabel value="Senha Atual:" for="iptSenAtual" style="text-align: left"/>
+                            <p:password id="iptSenAtual" feedback="false" minLength="10" required="true" maxlength="20" requiredMessage="Preencha senha atual!" value="#{admControle.senhaAtual}"/>
+                            <h:outputLabel value="Nova Senha:" for="iptSen"/>
+                            <p:password id="iptSen" feedback="true" minLength="10" promptLabel="Por favor, insira uma senha!" weakLabel="Senha fraca"
+                                        goodLabel="Senha segura" strongLabel="Senha muito segura" required="true" maxlength="20" requiredMessage="Preencha nova senha!" value="#{admControle.senha}"/>
+                            <h:outputLabel value="Confirma Nova Senha:" for="iptConSen"/>
+                            <p:password id="iptConSen" feedback="false" minLength="10" required="true" maxlength="20" requiredMessage="Preencha confirmação de senha!" value="#{admControle.confSenha}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:commandButton id="btnAlt" title="Alterar" value="Alterar" rendered="true" actionListener="#{admControle.alterarSenha}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </div>
+            <div>
+                <ui:insert >
+                    <ui:include src="./masterPageRodape.xhtml" />
+                </ui:insert>
+            </div>
+        </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <title>Escola de Sa&uacute;de P&uacute;blica do Cear&aacute;</title>
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="escola, escola de saude, escola de saúde, governo, estado, ceará, ceara, governo estado ceara, governo estado cear�, saude, secretaria sa�de, sa�de, secretaria saude estado ceara, secretaria sa�de estado cear�, sesa, joomla" />
+        <meta name="description" content="Escola de Sa&uacute;de P&uacute;blica do Cear&aacute;" />
+        <meta name="MSSmartTagsPreventParsing" content="true" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <!--[if IE]>
+            <link rel="stylesheet" href="../resources/css/cabecalho_ie7.css" type="text/css" />
+        <![endif]-->
+    </h:head>
+    <body>
+        <div id="geral" align="center">
+            <div style="height: 126px">
+                <ui:insert >
+                    <ui:include src="./masterPageCabecalho.xhtml" />
+                </ui:insert>
+            </div>
+            <div align="center" >
+                <ui:include src="masterPageMenu.xhtml" /><br/>
+            </div>
+            <div align="center" style="width: 790px; height: 550px; display: table-cell; margin: 0 auto;">
+                <div class="ui-growl">
+                    <p:growl id="pmsgMono" showDetail="false" life="5000"/>
+                </div>
+                <h:form id="frmPesqMono" prependId="false">
+                    <p:panel id="rplMono" header="BDTDM - Programa" style="width: 700px">
+                        <div align="left">
+                            <h:panelGrid columns="2" style="azimuth: left">
+                                <h:outputLabel id="oplNome" value="Nome:" for="iptNome"></h:outputLabel>
+                                <p:inputText id="iptNome" required="true" maxlength="100" requiredMessage="Preencha nome!" value="#{programaControle.programas.nomeprograma}" style="width:500px"></p:inputText>
+                            </h:panelGrid>
+                        </div>
+                        <div align="center">
+                            <h:panelGrid columns="4">
+                                <h:commandButton id="btnInc" title="Incluir" value="Incluir" rendered="true" actionListener="#{programaControle.incluir}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+                            </h:panelGrid>
+                        </div>
+                    </p:panel>
+                </h:form>
+                <br/>
+                <div>
+                    <h:form id="frmDataTableProg" prependId="false" style="width: 700px">
+                        <div align="left">
+                            <p:ajaxStatus>
+                                <f:facet name="start">
+                                    <h:graphicImage value="../resources/imagens/ajax-loader_1.gif" />
+                                </f:facet>
+                                <f:facet name="complete">
+                                    <h:outputText value="" />
+                                </f:facet>
+                            </p:ajaxStatus>
+                        </div>
+                        <p:dataTable var="programa" value="#{programaControle.listarProgramas}" emptyMessage="Nenhum registro encontrado" paginator="true" rows="8" paginatorTemplate="{PageLinks}">
+                            <p:column>
+                                <f:facet name="header">
+                                    Nome
+                                </f:facet>
+                                <h:outputText value="#{programa.nomeprograma}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandLink actionListener="#{programaControle.excluir}" value="Excluir" update="frmDataTableProg,pmsgMono"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+            <div>
+                <ui:insert >
+                    <ui:include src="./masterPageRodape.xhtml" />
+                </ui:insert>
+            </div>
+        </div>
+    </body>
+</html>
+

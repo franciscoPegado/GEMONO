@@ -1,0 +1,11 @@
+/*-------GROWL---------*/
+
+.ui-growl {
+    cursor: pointer;
+
+    position: absolute;
+
+    left: 335px;
+
+    top: 15px;
+}

@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <title>Escola de Sa&uacute;de P&uacute;blica do Cear&aacute;</title>
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="escola, escola de saude, escola de saúde, governo, estado, ceará, ceara, governo estado ceara, governo estado cear�, saude, secretaria sa�de, sa�de, secretaria saude estado ceara, secretaria sa�de estado cear�, sesa, joomla" />
+        <meta name="description" content="Escola de Sa&uacute;de P&uacute;blica do Cear&aacute;" />
+        <meta name="MSSmartTagsPreventParsing" content="true" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <link rel="stylesheet" href="adm/resources/css/principal_firefox.css" type="text/css" />
+        <!--[if IE]>
+            <link rel="stylesheet" href="resources/css/cabecalho_ie7.css" type="text/css" />
+        <![endif]-->
+    </h:head>
+    <h:body>
+        <div id="geral" align="center">
+            <div style="height: 126px">
+                <ui:insert >
+                    <ui:include src="./masterPageCabecalho.xhtml" />
+                </ui:insert>
+            </div>
+            <div>
+                <h:form id="frmPesqMono" prependId="false" style="width: 810px;text-align: center">
+                    <p:panel id="rplMono" header="BDTDM - Busca Avançada" style="width: 800px">
+                        <div align="center">
+                            <div align="right">
+                                <h:commandButton id="btnBuscAvanc" title="Busca Simples" value="Busca Simples" action="/faces/publico/frmDownMono.xhtml"
+                                                 styleClass="ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+                            </div>
+                            <br/>
+                            <h:panelGrid columns="2" style="azimuth: center">
+                                <h:outputLabel id="optLinPesq" value="Linha de Pesquisa:&nbsp;&nbsp;&nbsp;" />
+                                <h:selectOneMenu id="iptLinhaPes" value="#{monografiaControle.codLinPesq}"
+                                                 rendered="true" style="width:400px;azimuth: left;" styleClass="ui-inputfield ui-widget ui-state-default ui-corner-all">
+                                    <f:selectItems value="#{monografiaControle.listarPesquisa}" />
+                                </h:selectOneMenu>
+                                <h:outputLabel value="Programa:" style="text-align: left"/>
+                                <h:selectOneMenu id="iptProg" value="#{monografiaControle.codProg}"
+                                                 rendered="true" style="width:400px;azimuth: left" styleClass="ui-inputfield ui-widget ui-state-default ui-corner-all">
+                                    <f:selectItems value="#{monografiaControle.listarPrograma}" />
+                                </h:selectOneMenu>
+                                <h:outputLabel id="oplTit"  value="Titulo:"/>
+                                <p:inputText id="iptTit" value="#{monografiaControle.desc}" style="width:500px"/>
+                                <h:outputLabel id="oplAut" value="Autor:"/>
+                                <p:inputText id="iptAut" value="#{monografiaControle.autor}" style="width:500px"/>
+                                <h:outputLabel id="oplOri" value="Orientador"/>
+                                <p:inputText id="iptOri" value="#{monografiaControle.ori}" style="width:500px"/>
+                                <h:outputLabel id="oplCoori" value="Co-orientador:"/>
+                                <p:inputText id="iptCoori" value="#{monografiaControle.coori}" style="width:500px"/>
+                                <h:outputLabel id="oplBcexa" value="Banca Examinadora:"/>
+                                <p:inputText id="iptBcexa" value="#{monografiaControle.bancaExa}" style="width:500px"/>
+                                <h:outputLabel id="oplRes" value="Resumo"/>
+                                <p:inputText id="iptRes" value="#{monografiaControle.assunto}" style="width:500px"/>
+                            </h:panelGrid>
+                            <div align="left">
+                                <h:panelGrid columns="4" style="azimuth: left">
+                                    <h:outputLabel id="oplDatDef" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data da Defesa:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
+                                    <p:calendar id="iptDatDefIni" size="8" style="width:120px" pattern="dd/MM/yyyy" effect="drop" value="#{monografiaControle.datDefIni}" ></p:calendar>a
+                                    <p:calendar id="iptDatDefFim" size="8" style="width:120px" pattern="dd/MM/yyyy" effect="drop" value="#{monografiaControle.datDefFim}" ></p:calendar>
+                                </h:panelGrid>
+                            </div>
+                            <br/>
+                            <h:panelGrid columns="1">
+                                <h:commandButton id="btnPesMono" title="Buscar" value="Buscar" actionListener="#{monografiaControle.PesquisaMonografiasAvanc}"
+                                                 styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+                            </h:panelGrid>
+                        </div>
+                    </p:panel>
+                </h:form><br/><br/>
+            </div>
+            <div align="center" style="width: 990px; height: 60px; display: table-cell; margin: 0 auto;">
+                <p:growl id="pmsgMono" showDetail="false" life="5000" />
+                <h:form id="frmDataMono" prependId="false" style="width: 810px;text-align: center;">
+                    <p:dataTable id="dtmono" var="pro" value="#{monografiaControle.model}"
+                                 rendered="#{monografiaControle.exibirFormPesqAvanc}" emptyMessage="Nenhum registro encontrado"
+                                 paginator="true" rows="4" paginatorTemplate="{PageLinks}" style="text-align: center" >
+                        <f:facet name="header">
+                            <h:outputText value="BDTDM CADASTRADOS"/>
+                        </f:facet>
+                        <p:column>
+                            <f:facet name="header">
+                                Autor
+                            </f:facet>
+                            <h:outputText value="#{pro.autor}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                Título
+                            </f:facet>
+                            <h:commandLink value="#{pro.tlptbr}" action="#{monografiaControle.selectedRowMonografia}" style="color: blue"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                Data da Defesa
+                            </f:facet>
+                            <h:outputText value="#{pro.datadefesa}" >
+                                <f:convertDateTime type="date" dateStyle="short"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+            <br/>
+            <div>
+                <ui:insert >
+                    <ui:include src="./masterPageRodape.xhtml" />
+                </ui:insert>
+            </div>
+        </div>
+    </h:body>
+</html>
+

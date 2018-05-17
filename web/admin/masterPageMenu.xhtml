@@ -1,0 +1,29 @@
+<ui:fragment xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:form>
+        <p:menubar autoSubmenuDisplay="true" style="width: 800px;height: 25px" effectDuration="150" effect="slide">
+            <p:menuitem value="Página Inicial" action="/faces/adm/principal.xhtml" ajax="false" icon="ui-icon ui-icon-home" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+            <p:submenu label="Usuários" icon="ui-icon ui-icon-document" rendered="#{admControle.menuUsuarios}">
+                <p:menuitem value="Cadastro" url="/faces/adm/frmListaUsua.xhtml"
+                            styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+            </p:submenu>
+            <p:submenu label="Monografia" icon="ui-icon ui-icon-document" >
+                <p:menuitem value="Cadastro" action="#{monografiaControle.prepararAdicionarMonografia}" ajax="false" rendered="true"
+                             styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+                <p:menuitem value="Pesquisa" url="/faces/adm/frmPesqMono.xhtml"
+                            styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+            </p:submenu>
+            <p:submenu label="Linha de Pesquisa" icon="ui-icon ui-icon-document">
+                <p:menuitem value="Cadastro" url="/faces/adm/frmLinhaPesq.xhtml"
+                            styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+            </p:submenu>
+            <p:submenu label="Programas" icon="ui-icon ui-icon-document">
+                <p:menuitem value="Cadastro" url="/faces/adm/frmProg.xhtml"
+                            styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-focus"/>
+            </p:submenu>
+        </p:menubar>
+    </h:form>
+</ui:fragment>
+
